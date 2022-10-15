@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	gowake "git.lupinelab.co.uk/lupinelab/gowake/internal"
-
 	"github.com/spf13/cobra"
 )
 
@@ -31,7 +30,7 @@ var gowakeCmd = &cobra.Command{
 			return
 		}
 
-		mp, err := gowake.BuildPacket(args[0])
+		mp, err := gowake.BuildMagicPacket(args[0])
 		if err != nil {
 			return
 		}
