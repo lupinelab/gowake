@@ -3,7 +3,7 @@ package gowake
 import (
 	"fmt"
 
-	gowake "git.lupinelab.co.uk/lupinelab/gowake/internal"
+	gowake "github.com/lupinelab/gowake/internal"
 	"github.com/spf13/cobra"
 )
 

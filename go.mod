@@ -1,4 +1,4 @@
-module git.lupinelab.co.uk/lupinelab/gowake
+module github.com/lupinelab/gowake
 
 go 1.19
 

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"git.lupinelab.co.uk/lupinelab/gowake/cmd"
+	"github.com/lupinelab/gowake/cmd"
 )
 
 func main() {
