@@ -3,7 +3,7 @@ package gowake
 import (
 	"fmt"
 
-	gowake "github.com/lupinelab/gowake/internal"
+	gowake "github.com/lupinelab/gowake/pkg"
 	"github.com/spf13/cobra"
 )
 
@@ -39,7 +39,7 @@ var gowakeCmd = &cobra.Command{
 		}
 
 		// Send packet
-		gowake.SendPacket(mp, port)
+		gowake.SendMagicPacket(mp, port)
 		fmt.Printf("Sent magic packet to %v\n", args[0])
 	},
 }

@@ -5,7 +5,7 @@ import (
 	"net"
 )
 
-func Listen(port int) (*net.UDPAddr, string, error) {
+func ListenMagicPacket(port int) (*net.UDPAddr, string, error) {
 	var magicpacket MagicPacket
 
 	network := net.UDPAddr{

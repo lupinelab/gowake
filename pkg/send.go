@@ -5,7 +5,7 @@ import (
 	"net"
 )
 
-func SendPacket(mp MagicPacket, port int) {
+func SendMagicPacket(mp MagicPacket, port int) {
 	conn, _ := net.Dial("udp", fmt.Sprintf("255.255.255.255:%d", port))
 	_, err := conn.Write(mp[:])
 	if err != nil {
