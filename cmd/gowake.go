@@ -1,22 +1,10 @@
-package gowake
+package cmd
 
 import (
 	"fmt"
-
-	gowake "github.com/lupinelab/gowake/pkg"
+	"github.com/lupinelab/gowake/pkg"
 	"github.com/spf13/cobra"
 )
-
-var port int
-
-func init() {
-	cobra.EnableCommandSorting = false
-	gowakeCmd.AddCommand(listenCmd)
-	gowakeCmd.PersistentFlags().IntVarP(&port, "port", "p", 9, "Port on which send or listen for magic packet")
-	gowakeCmd.PersistentFlags().BoolP("help", "h", false, "Print usage")
-	gowakeCmd.PersistentFlags().Lookup("help").Hidden = true
-	gowakeCmd.CompletionOptions.DisableDefaultCmd = true
-}
 
 var gowakeCmd = &cobra.Command{
 	Use:   "gowake [macaddress]",
@@ -33,17 +21,26 @@ var gowakeCmd = &cobra.Command{
 		}
 
 		// Build packet
-		mp, err := gowake.BuildMagicPacket(args[0])
+		mp, err := pkg.BuildMagicPacket(args[0])
 		if err != nil {
 			return
 		}
 
 		// Send packet
-		gowake.SendMagicPacket(mp, port)
+		pkg.SendMagicPacket(mp, port)
 		fmt.Printf("Sent magic packet to %v\n", args[0])
 	},
 }
 
 func Execute() error {
 	return gowakeCmd.Execute()
+}
+
+func init() {
+	var port int
+	gowakeCmd.PersistentFlags().IntVarP(&port, "port", "p", 9, "Port on which send or listen for magic packet")
+	gowakeCmd.PersistentFlags().BoolP("help", "h", false, "Print usage")
+	gowakeCmd.PersistentFlags().Lookup("help").Hidden = true
+	cobra.EnableCommandSorting = false
+	gowakeCmd.CompletionOptions.DisableDefaultCmd = true
 }

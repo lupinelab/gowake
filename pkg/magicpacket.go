@@ -1,13 +1,13 @@
-package gowake
+package pkg
 
 import (
 	"fmt"
 	"net"
 )
 
-type MagicPacket [102]byte
+type magicPacket [102]byte
 
-func BuildMagicPacket(mac string) (packet MagicPacket, err error) {
+func BuildMagicPacket(mac string) (packet magicPacket, err error) {
 	// Parse mac address
 	hwAddr, err := net.ParseMAC(mac)
 	if err != nil {

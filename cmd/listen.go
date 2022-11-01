@@ -1,9 +1,9 @@
-package gowake
+package cmd
 
 import (
 	"fmt"
 
-	gowake "github.com/lupinelab/gowake/pkg"
+	"github.com/lupinelab/gowake/pkg"
 	"github.com/spf13/cobra"
 )
 
@@ -12,7 +12,7 @@ var listenCmd = &cobra.Command{
 	Short: "Listen for a magic packet",
 	Run: func(cmd *cobra.Command, args []string) {
 		port, _ := cmd.Flags().GetInt("port")
-		remote, macaddr, err := gowake.ListenMagicPacket(port)
+		remote, macaddr, err := pkg.ListenMagicPacket(port)
 		if err != nil {
 			if err.Error() == fmt.Sprintf("listen udp 0.0.0.0:%d: bind: permission denied", port) {
 				fmt.Println("Please run as elevated user")
@@ -24,4 +24,8 @@ var listenCmd = &cobra.Command{
 		}
 		fmt.Printf("%v from %v\n", macaddr, remote.String())
 	},
+}
+
+func init() {
+	gowakeCmd.AddCommand(listenCmd)
 }

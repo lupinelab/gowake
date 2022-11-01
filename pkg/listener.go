@@ -1,4 +1,4 @@
-package gowake
+package pkg
 
 import (
 	"fmt"
@@ -6,7 +6,7 @@ import (
 )
 
 func ListenMagicPacket(port int) (*net.UDPAddr, string, error) {
-	var magicpacket MagicPacket
+	var magicpacket magicPacket
 
 	network := net.UDPAddr{
 		IP:   net.ParseIP("0.0.0.0"),

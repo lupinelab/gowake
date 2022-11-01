@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	gowake.Execute()
+	cmd.Execute()
 }
