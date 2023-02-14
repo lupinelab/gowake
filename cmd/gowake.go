@@ -39,8 +39,10 @@ func Execute() error {
 func init() {
 	var port int
 	gowakeCmd.PersistentFlags().IntVarP(&port, "port", "p", 9, "Port on which send or listen for magic packet")
-	gowakeCmd.PersistentFlags().BoolP("help", "h", false, "Print usage")
-	gowakeCmd.PersistentFlags().Lookup("help").Hidden = true
+	gowakeCmd.PersistentFlags().BoolP("help", "h", false, "Print help")
+	gowakeCmd.SetHelpCommand(&cobra.Command{
+		Hidden: true,
+	})
 	cobra.EnableCommandSorting = false
 	gowakeCmd.CompletionOptions.DisableDefaultCmd = true
 }
