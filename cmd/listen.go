@@ -8,7 +8,7 @@ import (
 )
 
 var listenCmd = &cobra.Command{
-	Use:   "listen [macaddress]",
+	Use:   "listen [macaddress] [flags]",
 	Short: "Listen for a magic packet",
 	Run: func(cmd *cobra.Command, args []string) {
 		port, _ := cmd.Flags().GetInt("port")
