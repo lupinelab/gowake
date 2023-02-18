@@ -12,20 +12,29 @@ var listenCmd = &cobra.Command{
 	Short: "Listen for a magic packet",
 	Run: func(cmd *cobra.Command, args []string) {
 		port, _ := cmd.Flags().GetInt("port")
-		remote, macaddr, err := pkg.ListenMagicPacket(port)
-		if err != nil {
-			if err.Error() == fmt.Sprintf("listen udp 0.0.0.0:%d: bind: permission denied", port) {
-				fmt.Println("Please run as elevated user")
-				return
-			} else {
-				fmt.Println(err.Error())
-				return
+		cont, _ := cmd.Flags().GetBool("continuous")
+		fmt.Printf("Listening for magic packets on port %d:\n", port)
+		for true {
+			remote, macaddr, err := pkg.ListenMagicPacket(port)
+			if err != nil {
+				if err.Error() == fmt.Sprintf("listen udp 0.0.0.0:%d: bind: permission denied", port) {
+					fmt.Println("Please run as elevated user")
+					return
+				} else {
+					fmt.Println(err.Error())
+					return
+				}
+			}
+			fmt.Printf("%v from %v\n", macaddr, remote.String())
+			if !cont {
+				break
 			}
 		}
-		fmt.Printf("%v from %v\n", macaddr, remote.String())
 	},
 }
 
 func init() {
+	var continuous bool
+	listenCmd.Flags().BoolVarP(&continuous, "continuous", "c", false, "Listen continuously for magic packets")
 	gowakeCmd.AddCommand(listenCmd)
 }

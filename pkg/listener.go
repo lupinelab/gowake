@@ -19,8 +19,6 @@ func ListenMagicPacket(port int) (*net.UDPAddr, string, error) {
 	}
 	defer listener.Close()
 
-	fmt.Printf("Listening for magic packets on port %d:\n", port)
-
 	for {
 		_, remote, err := listener.ReadFromUDP(magicpacket[:])
 		if err != nil {
