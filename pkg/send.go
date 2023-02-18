@@ -5,9 +5,15 @@ import (
 	"net"
 )
 
-func SendMagicPacket(mp magicPacket, port int) {
-	conn, _ := net.Dial("udp", fmt.Sprintf("255.255.255.255:%d", port))
-	_, err := conn.Write(mp[:])
+type SendOptions struct {
+	Mp magicPacket
+	IP string
+	Port int
+}
+
+func SendMagicPacket(options SendOptions) {
+	conn, _ := net.Dial("udp", fmt.Sprintf("%s:%d", options.IP, options.Port))
+	_, err := conn.Write(options.Mp[:])
 	if err != nil {
 		fmt.Println("Could not send magic packet")
 		return
