@@ -40,7 +40,7 @@ var gowakeCmd = &cobra.Command{
 		}
 
 		// Send packet
-		err = gowake.SendMagicPacket(*mp, ip, port)
+		err = gowake.SendMagicPacket(mp, ip, port)
 		if err != nil {
 			fmt.Println(err.Error())
 		}

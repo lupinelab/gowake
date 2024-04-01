@@ -7,20 +7,19 @@ import (
 
 type MagicPacket [102]byte
 
-func NewMagicPacket(mac string) (mp *MagicPacket, err error) {
+func NewMagicPacket(mac string) (MagicPacket, error) {
 	// Parse mac address
 	hwAddr, err := net.ParseMAC(mac)
 	if err != nil {
-		return nil, err
+		return MagicPacket{}, err
 	}
 
 	if len(hwAddr) != 6 {
-		return nil, fmt.Errorf("invalid EUI-48 MAC address")
+		return MagicPacket{}, fmt.Errorf("invalid EUI-48 MAC address")
 	}
 
 	// Build magicpacket
-	magicPacket := MagicPacket{}
-	copy(magicPacket[:], []byte{255, 255, 255, 255, 255, 255})
+	magicPacket := MagicPacket{255, 255, 255, 255, 255, 255}
 
 	offset := 6
 	for i := 0; i < 16; i++ {
@@ -28,5 +27,5 @@ func NewMagicPacket(mac string) (mp *MagicPacket, err error) {
 		offset += 6
 	}
 
-	return &magicPacket, err
+	return magicPacket, err
 }

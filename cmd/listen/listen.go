@@ -15,7 +15,7 @@ var ListenCmd = &cobra.Command{
 		cont, _ := cmd.Flags().GetBool("continuous")
 		fmt.Printf("Listening for magic packets on port %d:\n", port)
 		for {
-			remote, macaddr, err := gowake.Listen(port)
+			remote, mac, err := gowake.Listen(port)
 			if err != nil {
 				if err.Error() == fmt.Sprintf("listen udp 0.0.0.0:%d: bind: permission denied", port) {
 					fmt.Println("Please run as elevated user")
@@ -25,7 +25,7 @@ var ListenCmd = &cobra.Command{
 					return
 				}
 			}
-			fmt.Printf("%v from %v\n", macaddr, remote.String())
+			fmt.Printf("%v from %v\n", mac, remote.String())
 			if !cont {
 				break
 			}
